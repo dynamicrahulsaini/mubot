@@ -32,6 +32,4 @@ class Secrets:
 
     def run(self, client: Client):
         """run discord server client"""
-        # if self.config['DISCORD_TOKEN']:
-        # self.config['DISCORD_TOKEN'] = os.getenv('DISCORD_TOKEN')
         client.run(self.token)

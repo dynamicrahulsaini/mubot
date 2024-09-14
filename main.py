@@ -1,6 +1,16 @@
 """discord bot module"""
-from src.client import MyClient
-from src.bot.commands import Test
+
+import asyncio
+import logging
+from re import L
+from client import MyClient
+import discord
+
+
+async def main():
+    discord.utils.setup_logging(level=logging.INFO, root=True)
+    await MyClient.runClient()
+
 
 if __name__ == "__main__":
-    MyClient.runClient()
+    asyncio.run(main())
