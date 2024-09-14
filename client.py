@@ -20,7 +20,6 @@ class MyClient(discord.Client):
     async def on_ready(self):
         """initialization log"""
         await self.sync(guild=discord.Object)
-        # print(f"Logged in as {self.user} ")
 
     async def on_message(self, message):
         """message listener"""

@@ -2,7 +2,6 @@
 
 import asyncio
 import logging
-from re import L
 from client import MyClient
 import discord
 
