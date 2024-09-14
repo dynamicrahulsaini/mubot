@@ -12,3 +12,4 @@ multidict==6.0.4
 python-dotenv==1.0.0
 spotify==0.10.2
 yarl==1.9.2
+yt-dlp==2024.5.19

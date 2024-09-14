@@ -3,6 +3,7 @@ from discord.flags import Intents
 from discord.ext import commands
 from bot.secrets import Secrets
 from bot.commands import Test
+from bot.music import Music
 
 
 class MyClient(discord.Client):
@@ -29,4 +30,5 @@ class MyClient(discord.Client):
     async def runClient():
         client: MyClient = MyClient()
         await client.bot.add_cog(Test(client.bot))
+        await client.bot.add_cog(Music(client.bot))
         await client.bot.start(token=client.secrets.token)

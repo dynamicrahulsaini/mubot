@@ -23,12 +23,12 @@ class Secrets:
         if path.isfile(".env"):
             config: dict = dotenv_values(".env")
             self.token = config["DISCORD_TOKEN"]
-            self.app_id = config["APP_ID"]
-            self.public_key = config["PUBLIC_KEY"]
+            self.app_id = config["DISCORD_APP_ID"]
+            self.public_key = config["DISCORD_PUBLIC_KEY"]
         else:
             self.token = getenv("DISCORD_TOKEN")
-            self.app_id = getenv("APP_ID")
-            self.public_key = getenv("PUBLIC_KEY")
+            self.app_id = getenv("DISCORD_APP_ID")
+            self.public_key = getenv("DISCORD_PUBLIC_KEY")
 
     def run(self, client: Client):
         """run discord server client"""
