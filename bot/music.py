@@ -5,6 +5,8 @@ from discord import FFmpegPCMAudio
 from discord.ext import commands
 import yt_dlp
 
+from bot.music_utils.yt import yt_dlp_extract_audio_url
+
 
 class Music(commands.Cog):
     bot: commands.Bot = None
@@ -29,16 +31,11 @@ class Music(commands.Cog):
         logging.info(f"play command called by {ctx.author}")
         if ctx.voice_client is None:
             if ctx.author.voice:
+                self.voice_joined_timestamp[ctx.author.id] = datetime.now()
                 channel = ctx.author.voice.channel
                 await channel.connect()
 
         url = ":".join(args[0].split(":")[1:])
-
-        ydl_opts = {"format": "bestaudio", "quiet": True}
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-            audio_url = info["url"]
 
         if ctx.voice_client.is_playing():
             await ctx.send("Already playing audio!")
@@ -50,7 +47,7 @@ class Music(commands.Cog):
         }
 
         audio_from_url = FFmpegPCMAudio(
-            executable="ffmpeg", source=audio_url, **ffmpeg_options
+            executable="ffmpeg", source=yt_dlp_extract_audio_url(url), **ffmpeg_options
         )
 
         ctx.voice_client.play(audio_from_url)
