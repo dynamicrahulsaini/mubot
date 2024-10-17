@@ -17,6 +17,8 @@
 - `!stop` - stop the audio
 - `!skip` - skip the current audio
 - `!queue` - show the current queue
+- `!lyrics` - show the lyrics of the current audio
+- `!lyrics <song>` - show the lyrics of the given song
 
 ## development
 
