@@ -1,12 +1,40 @@
+import logging
 import re
 import yt_dlp
 
+def extract_song_info(url):
+    """Extract song information from YouTube URLs"""
+    if 'youtube.com' in url or 'youtu.be' in url:
+        return extract_youtube_info(url)
+    return None
 
-def yt_dlp_extract_audio_url(url):
-    ydl_opts = {"format": "bestaudio", "quiet": True}
+def extract_youtube_info(url):
+    """Extract song information from YouTube URL"""
+    ydl_opts = {
+        "format": "bestaudio",
+        "quiet": True,
+        "nocheckcertificate": True,
+        "ignoreerrors": False,
+        "logtostderr": False,
+        "no_warnings": True,
+        "default_search": "auto",
+        "source_address": "0.0.0.0",
+        "extract_flat": False,
+        "cookiesfrombrowser": ("chrome", None, None, None),  # Fixed browser cookies configuration
+    }
 
-    return yt_dlp.YoutubeDL(ydl_opts).extract_info(url, download=False)["url"]
-
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            return {
+                'url': info['url'],
+                'title': info.get('title', 'Unknown Title'),
+                'artist': info.get('uploader', 'Unknown Artist'),
+                'source': 'youtube'
+            }
+    except Exception as e:
+        logging.error(f"Error extracting YouTube audio URL: {str(e)}")
+        return None
 
 def extract_video_id(url):
     # Patterns for different types of YouTube URLs

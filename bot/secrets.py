@@ -14,6 +14,8 @@ class Secrets:
     token: str = None
     app_id: str = None
     public_key: str = None
+    spotify_client_id: str = None
+    spotify_client_secret: str = None
 
     def __init__(self) -> None:
         self.load_env()
@@ -25,10 +27,14 @@ class Secrets:
             self.token = config["DISCORD_TOKEN"]
             self.app_id = config["DISCORD_APP_ID"]
             self.public_key = config["DISCORD_PUBLIC_KEY"]
+            self.spotify_client_id = config.get("SPOTIFY_CLIENT_ID")
+            self.spotify_client_secret = config.get("SPOTIFY_CLIENT_SECRET")
         else:
             self.token = getenv("DISCORD_TOKEN")
             self.app_id = getenv("DISCORD_APP_ID")
             self.public_key = getenv("DISCORD_PUBLIC_KEY")
+            self.spotify_client_id = getenv("SPOTIFY_CLIENT_ID")
+            self.spotify_client_secret = getenv("SPOTIFY_CLIENT_SECRET")
 
     def run(self, client: Client):
         """run discord server client"""
