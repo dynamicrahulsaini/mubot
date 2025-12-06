@@ -5,6 +5,7 @@ from discord import FFmpegPCMAudio
 from discord.ext import commands
 import yt_dlp
 
+from bot.music_utils.song import Song
 from bot.music_utils.yt import extract_song_info as extract_youtube_info
 from bot.music_utils.spotify import extract_track_info as extract_spotify_info, search_by_title
 
@@ -12,6 +13,7 @@ from bot.music_utils.spotify import extract_track_info as extract_spotify_info, 
 class Music(commands.Cog):
     bot: commands.Bot = None
     voice_joined_timestamp: dict = {}
+    song_queue: list[Song] = []
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
